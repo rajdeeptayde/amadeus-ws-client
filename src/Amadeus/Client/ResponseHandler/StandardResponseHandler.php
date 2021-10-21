@@ -322,4 +322,45 @@ abstract class StandardResponseHandler implements MessageResponseHandler
             )
         );
     }
+
+    protected function analyzeWithErrorCodeMsgQuerySource(SendResult $response, $qErr, $qMsg, $qSrc)
+    {
+        $analyzeResponse = new Result($response);
+
+        $domXpath = $this->makeDomXpath($response->responseXml);
+        $errorCodeNodeList = $domXpath->query($qErr);
+       // print_r();
+        $errorMsgNodeList = $domXpath->query($qMsg);
+
+        if ($errorCodeNodeList->length > 0 || $errorMsgNodeList->length > 0) {
+            $analyzeResponse->status = $analyzeResponse->status;
+
+            $errorCode = ($errorCodeNodeList->length > 0) ? $errorCodeNodeList->item(0)->nodeValue : null;
+
+            $analyzeResponse->messages[] = new Result\NotOk(
+                $errorCode,
+                $this->makeMessageFromMessagesNodeList($errorMsgNodeList));
+        }
+        if ($errorCodeNodeList->length > 0) {
+            $analyzeResponse->status = Result::STATUS_ERROR;
+
+            $srcNodeList = $domXpath->query($qSrc);
+            $source = null;
+
+            if ($srcNodeList->length > 0) {
+                $source = $srcNodeList->item(0);
+            }
+
+            $analyzeResponse->messages[] = new Result\NotOk(
+                $errorCodeNodeList->item(0)->nodeValue,
+                $this->makeMessageFromMessagesNodeList(
+                    $domXpath->query($qMsg)
+                ),
+                null,
+                $source
+            );
+        }
+
+        return $analyzeResponse;
+    }
 }
