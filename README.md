@@ -34,7 +34,7 @@ This library makes it a lot easier for developers to integrate content from the 
 Install amadeus-ws-client through [Composer](http://getcomposer.org).
 
 ```bash
-composer require amabnl/amadeus-ws-client
+composer require rajdeeptayde/amadeus-ws-client
 ```
 
 After installing, you need to require Composer's autoloader:
