@@ -20,19 +20,27 @@
  * @license https://opensource.org/licenses/Apache-2.0 Apache 2.0
  */
 
-namespace Amadeus\Client\ResponseHandler\Ticket;
+namespace Amadeus\Client\RequestCreator\Converter\PNR;
 
-use Amadeus\Client\Exception;
-use Amadeus\Client\ResponseHandler\StandardResponseHandler;
-use Amadeus\Client\Result;
-use Amadeus\Client\Session\Handler\SendResult;
+use Amadeus\Client\RequestCreator\Converter\BaseConverter;
+use Amadeus\Client\RequestOptions\PnrChangeElementOptions;
+use Amadeus\Client\Struct;
 
 /**
- * HandlerProcessETicket
+ * PNR_ChangeElement Request converter
  *
- * @package Amadeus\Client\ResponseHandler\Ticket
- * @author Mike Hernas <m@hern.as>
+ * @package Amadeus\Client\RequestCreator\Converter\PNR
+ * @author Artem Zakharchenko <artz.relax@gmail.com>
  */
-class HandlerProcessETicket extends HandlerList
+class ChangeElementConv extends BaseConverter
 {
+    /**
+     * @param PnrChangeElementOptions $requestOptions
+     * @param int|string $version
+     * @return Struct\Pnr\ChangeElement
+     */
+    public function convert($requestOptions, $version)
+    {
+        return new Struct\Pnr\ChangeElement($requestOptions);
+    }
 }

@@ -20,19 +20,18 @@
  * @license https://opensource.org/licenses/Apache-2.0 Apache 2.0
  */
 
-namespace Amadeus\Client\ResponseHandler\Ticket;
-
-use Amadeus\Client\Exception;
-use Amadeus\Client\ResponseHandler\StandardResponseHandler;
-use Amadeus\Client\Result;
-use Amadeus\Client\Session\Handler\SendResult;
+namespace Amadeus\Client\RequestOptions;
 
 /**
- * HandlerProcessETicket
+ * Pnr_ChangeElement Request Options
  *
- * @package Amadeus\Client\ResponseHandler\Ticket
- * @author Mike Hernas <m@hern.as>
+ * @package Amadeus\Client\RequestOptions
+ * @author Artem Zakharchenko <artz.relax@gmail.com>
  */
-class HandlerProcessETicket extends HandlerList
+class PnrChangeElementOptions extends Base
 {
+    /**
+     * @var string
+     */
+    public $entry;
 }

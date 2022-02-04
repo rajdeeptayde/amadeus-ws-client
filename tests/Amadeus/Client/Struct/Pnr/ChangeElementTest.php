@@ -20,19 +20,29 @@
  * @license https://opensource.org/licenses/Apache-2.0 Apache 2.0
  */
 
-namespace Amadeus\Client\ResponseHandler\Ticket;
+namespace Test\Amadeus\Client\Struct\Pnr;
 
-use Amadeus\Client\Exception;
-use Amadeus\Client\ResponseHandler\StandardResponseHandler;
-use Amadeus\Client\Result;
-use Amadeus\Client\Session\Handler\SendResult;
+use Amadeus\Client\RequestOptions\PnrChangeElementOptions;
+use Amadeus\Client\Struct\Pnr\ChangeElement;
+use Test\Amadeus\BaseTestCase;
 
 /**
- * HandlerProcessETicket
+ * ChangeElementTest
  *
- * @package Amadeus\Client\ResponseHandler\Ticket
- * @author Mike Hernas <m@hern.as>
+ * @package Test\Amadeus\Client\Struct\Pnr
+ * @author Artem Zakharchenko <artz.relax@gmail.com>
  */
-class HandlerProcessETicket extends HandlerList
+class ChangeElementTest extends BaseTestCase
 {
+    public function testCanMakeChangeElement()
+    {
+        $message = new ChangeElement(
+            new PnrChangeElementOptions([
+                'entry' => '8/TR/01DEC',
+            ])
+        );
+
+        self::assertEquals('M', $message->messageAction->messageFunctionDetails->messageFunction);
+        self::assertEquals('8/TR/01DEC', $message->longTextString->textStringDetails);
+    }
 }
